@@ -1,0 +1,8 @@
+% このファイルは配布するファイルの量を減らすために，sample.tex をトリッキー
+% な方法で投稿用で出力する。実際には sample.tex の \documentclass に draft 
+% オプションをつけたものが正しいサンプルである。
+%
+\documentclass[draft]{ipsjpapers}
+\makeatletter
+\def\documentclass#1{}
+\input{sample}

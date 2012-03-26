@@ -1,0 +1,1125 @@
+\documentclass[english]{ipsjpapers}
+% Set volume, number, etc.
+\setcounter{volume}{51}
+\setcounter{number}{10}
+\setcounter{volpageoffset}{1234}
+\received{2010}{7}{17}
+\accepted{2010}{9}{17}
+
+% User defined macros
+\makeatletter
+\let\@ARRAY\@array \def\@array{\def\<{\inhibitglue}\@ARRAY}
+\def\<{\begingroup\(\langle\)\it}
+\def\>{\/\(\rangle\)\endgroup}
+\def\|{\verb|}
+\def\cs#1{{\tt\string#1}}
+\def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
+\def\endUnderline{\vphantom{y}\egroup\underline{\box0}\\}
+\def\LATEx{\iLATEX{\normalsize\bf A}}
+\def\LATex{\iLATEX{\small\bf A}}
+\def\LaTeX{\leavevmode\smash{\iLATEX{\sc a}}}
+\def\iLATEX#1{L\kern-.36em\raise.3ex\hbox{#1}\kern-.15em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
+\def\LATEXe{\ifx\LaTeXe\undefined \LaTeX 2e\else\LaTeXe\fi}
+\def\LATExe{\ifx\LaTeXe\undefined \iLATEX\scriptsize 2e\else\LaTeXe\fi}
+\def\Quote{\list{}{}\item[]}
+\let\endQuote\endlist
+\def\LDOTS{$\mathinner{\ldotp\ldotp\ldotp}$}
+
+%\checklines	% Do it to check that baselines are fixed.
+\begin{document}%{
+% Title
+\title[How to Typeset Your Papers in {\protect\LaTeX}]%
+	{How to Typeset Your Papers in {\protect\LATEx} (Version 7.2)}
+% Definition of Affiliation Labels
+\affilabel{KU}{Kyoto University}
+\paffilabel{Princeton}{Institute for Advanced Study, Princeton (just joke)}
+\affilabel{NTT}{NTT Basic Research Laboratories}
+% Author Names
+\author{Hiroshi Nakashima\affiref{KU}\affiref{Princeton}\member{8104129}\and
+	Yasuki Saito\affiref{NTT}\member{8003547}}
+
+% Contact Address (only for submission, ignored in final version)
+\contact{Hiroshi Nakashima\\
+	Academic Center for Computing and Media Studies, Kyoto University\\
+	Yoshida Honmachi, Sakyo-Ku, Kyoto, 606--8501\\
+	phone: (075)753--7457\qquad facsimile: (075)753--7450\\
+	email: h.nakashima@media.kyoto-u.ac.jp}
+
+% Absract
+\begin{abstract}
+This pamphlet is a guide to producing a draft to be submitted to IPSJ Journal
+and Transactions and the final camera-ready manuscript of a paper to appear
+in the Journal\slash Transactions, using {\LaTeX} and special style
+files.  Since the pamphlet itself is produced with the style files, it will
+help you to refer its source file which is distributed with the style files.
+\end{abstract}
+
+% Output title, etc.
+\maketitle
+
+%}{
+
+% Main text starts here.
+\section{Introduction}
+\footnotetext[1]{The real author is the Editorial Board of the Trans. IPSJ.}
+
+The Information Processing Society of Japan now employs {\LaTeX} to make up
+the Journal\slash Transactions for quick and low-cost publishing.  This
+means that your {\LaTeX} source file is basically used as the source of the
+final printing process.  Therefore, your cooperation is essential for the
+publishing of the Journal\slash Transactions inheriting its traditional and
+easy-to-read style.
+
+This make-up system, on the other hand, should be also convenient for you,
+because it will greatly reduce troubles on proofreading by eliminating
+printer's errors inevitable in conventional type-printing systems.
+You can easily produce the final version of your paper conforming to the
+traditional style using special style files and standard {\LaTeX} commands.
+A style file for submission is also available and you can easily switch the
+style from submission to final with relatively few changes.
+Moreover, the draft
+produced by this submission style are much more readable for both you and
+referees than those following conventional submission rules.
+
+Although almost everything for final make-up can be done by using standard
+{\LaTeX} commands, there are a few additional and essential commands.  Also
+there are special rules that are not checked by the style files.  Therefore,
+you are requested {\em to read this guide carefully and to follow it
+rigidly} in order to make all the people involved in the publishing happy!
+
+%}{
+
+\section{Flow from Submission to Publishing}
+\label{sec:Enum}\label{sec:enum}
+
+The process from submission of a paper to publishing the Journal\slash
+Transactions featuring it is as follows\footnote[2]{%
+%
+The following explanation is based on the process of Journal.  Since each
+transactions may have its own process, please inquire its detail from each
+Editorial Board.}.
+%
+\begin{Enumerate}%{
+\item {\bf Obtaining Style Files}\\
+Access the WEB site of IPSJ \|http://www.|\allowbreak\|ipsj.or.jp/| to
+download author's kit including style files.  The kit contains the following
+files. 
+%
+\begin{enumerate}%{
+\item{\tt ipsjpapers.sty}\mbox{}\\style for final version to make up
+\item{\tt ipsjpapers.cls}\mbox{}\\{\LATEXe} style for final version
+\item{\tt ipsjdrafts.sty}\mbox{}\\style for drafts to submit
+\item{\tt ipsjcommon.sty}\mbox{}\\auxiliary style for final and draft versions
+\item{\tt ipsjsort-e.bst}\mbox{}\\Bib{\TeX} style (sorted)%
+\footnote[3]{%
+The kit also contains \texttt{ipsjsort.bst} and
+\texttt{ipsjunsrt.}\allowbreak\texttt{bst} which 
+are the counterparts of ``\texttt{-e}'' versions and require a Japanese
+\LaTeX{} environment.}
+\item{\tt ipsjunsrt-e.bst}\mbox{}\\Bib{\TeX} style (unsorted)%
+\footnotemark[3]
+\item{\tt esample.tex}\mbox{}\\source of this guide (for final)
+\item{\tt desample.tex}\mbox{}\\source of this guide (for draft)
+\item{\tt sample.tex}\mbox{}\\Japanese version source of this guide (for final)
+\item{\tt dsample.tex}\mbox{}\\Japanese version source of this guide
+(for draft)
+\item{\tt ebibsample.bib}\mbox{}\\sample of bibliographic data (English)
+\item{\tt bibsample.bib}\mbox{}\\sample of bibliographic data (Japanese)
+\end{enumerate}%}
+%
+The kit can be unpacked and read by most of platforms, including UNIX
+workstations, Windows (DOS) and Macintosh machines.
+
+\item {\bf Submitting Draft}\\
+Prepare the {\LaTeX} source of your draft with the \|draft| option as per
+this guide, process it using {\LaTeX} and produce a PDF file.  Since
+the style for submission automatically produces an output appropriate for
+{\em blind review}, your source file may have commands to give
+information which shows who you are and thus cannot appear in the draft.
+That is, even if you specify the names and affiliations of authors, their
+biographies, and/or acknowledgments to the people and/or organizations
+related to you, these items will not appear in your draft version if you use
+appropriate commands for them.
+Then access the web site
+\begin{itemize}\item[]\tt
+http://www.ipsj.or.jp/08editt/journal/submit/
+\end{itemize}
+to register
+yourself and to obtain your own URL to submit the PDF file.
+
+\item {\bf Making Final Version}\\
+After you receive the notification of acceptance, revise your paper
+in accordance with
+the comments from referees, and add required omissions from
+the draft, such as biography, if any.  The layout of figures and tables
+should be fixed.  After that, {\em check your paper again and again to
+completely remove description errors}.
+
+\item {\bf Sending Final Version}\\
+Send {\em both {\LaTeX} file package and the hard copy} to the IPSJ\@.  The
+standard contents of the file package are \|.tex| and \|.bbl|.  If you
+include PostScript files and/or special style files, add them into the
+package.  Note that {\em you must not split your source into multiple
+\|.tex| files}, because it is hard for printers to access multiple files
+when they modify your source.  Also carefully make sure that the package
+contains all necessary files, especially special style files.
+
+The detail of the file transfer, including its destination and packaging
+method, will be instructed to you by the IPSJ secretariat.
+
+\item {\bf Proofreading}\\
+The IPSJ may change terms in your paper as per its standard, and the printing
+house may modify your source to make it fit the standard printing style.  Even
+if they make no changes, the result printed at the printing house may be
+different from what you printed because of differences of {\LaTeX}
+execution environment.  Therefore, the galley proofs of your paper will be
+sent to you to check if those modification and/or differences are
+acceptable.  If not, correct errors with red ink.  Note that {\em this
+proofreading is not for the correction of your errors} which should have been
+corrected before sending the final version.
+
+\item {\bf Typesetting and Publishing}\\
+Your paper is typeset, after the correction of the errors you pointed out (if
+any), and is published as part of the Journal\slash Transactions.
+\end{Enumerate}%}
+
+%}{
+
+\section{{\protect\LATex} Environment}\label{sec:item}
+
+Although a style file, \|ipsjcommon.sty|, has some symbols in Japanese
+character set in its last part, you can use the standard (i.e.,
+non-Japanese) {\LaTeX} for your English papers because the sytle
+autmatically recognizes your environment and lets your {\LaTeX} stop to read
+the part it cannot cope with.  One exeception is, however, that you have to use
+one of non-Japanese versions of Bib\TeX{} styles \|ipsjsort-e.bst| or
+\|ipsjunsrt-e.bst|.
+
+The style files are confirmed to work with the following {\LATEXe}
+versions.
+%
+\begin{itemize}%{
+\item[]
+{\TeX} 3.141592${}+{}$ {\LaTeXe} 2003/12/01
+\end{itemize}%}
+%
+You may use the styles in either native-mode or {\LaTeX} 2.09 compatible
+mode.  Although we expect they will work with older versions, it is strongly
+recommended to use the version shown above or later one.
+
+If you still love {\LaTeX} 2.09, do not be afraid to use it because the
+sytles are backward compatible.
+
+%}{
+
+\section{How to Use Style Files}
+\subsection{General Advice}
+
+The Journal\slash Transactions, as opposed to conference proceedings, have a
+traditional and {\em stiff} style.  This makes the style files also {\em
+stiff} and strongly restricts the customizability that is one of the useful
+features of {\LaTeX}.  For example, you must not change {\em style
+parameters}, such as \|\texheight|.  It is not easy to show which
+customizations are allowed, but the standard ``Don't tamper with it unless
+you are confident'' should work well.
+
+Note that if you do something you should not, {\em you may not have error
+messages but simply have ugly results}.
+
+%}{
+
+\subsection{Configuration of Paper}\label{sec:config}
+
+The source file must have the following format.  Underlined parts can be
+omitted from draft versions.  Note that a few additional commands shown in
+\ref{sec:app-trans} of the Appendix are availabel for a paper included in the
+Transactions.
+%
+\begin{list}{}{\leftmargin.5\leftmargin}\item[]\def\!{\kern-.16667em}\small*\it
+\|\documentclass[english]{ipsjpapers}|\footnote{%
+Replace it with {\cs\documentstyle} and, if necessary, add auxiliary style
+name(s) as its optional argument, when you use {\LATExe} in 2.09-compatible
+mode or {\LaTeX} 2.09.}
+or\\
+\|\documentclass[english,draft]{ipsjpapers}|\rlap{\footnotemark[1]}\\
+Specify other option styles if necessary.\\
+Specify auxiliary styles by \|\usepackage|.\\
+\Underline{\|\setcounter{volume}{|\<volume\>\|}|}\\
+\Underline{\|\setcounter{number}{|\<number\>\|}|}\\
+\Underline{\|\setcounter{volpageoffset}{|\<first-page\>\|}|}\\
+\Underline{\|\received{|\<year\>\|}{|\<month\>\|}{|\<day\>\|}|}\\
+\Underline{\|\accepted{|\<year\>\|}{|\<month\>\|}{|\<day\>\|}|}\\
+Define your own macros if necessary.\\
+\|\begin{document}|\\
+\|\title{|\<title\>\|}|\\
+\Underline{\|\affilabel{|\<affiliation-label\>\|}{|\<affiliation\>\|}|}\\
+\Underline{\mbox{}\qquad\qquad\ldots\ldots\ldots}\\
+Declare current affiliation by \|\paffilabel| if necessary.\\
+\Underline{\|\author{|\<1st-author\>\|\and|\<2nd-author\>\|\and|\,\LDOTS\|}|}\\
+\|\begin{abstract}|\\
+\mbox{}\quad\<abstract\>\\
+\|\end{abstract}|\\
+\|\maketitle|\\
+\|\section{|\<heading-of-1st-section\>\|}|\\
+\mbox{}\quad $\ldots\ldots\ldots$\\
+\mbox{}\quad\<main text\>\\
+\mbox{}\quad $\ldots\ldots\ldots$\\
+Put acknowledgments here by \|acknowledgment| environment if any.\\
+\|\bibliographystyle{ipsjunsrt}| or\\
+\|\bibliographystyle{ipsjsort}|\\
+\|\bibliography{|\<bib-data-file\>\|}|\\
+Put appendices here following \|\appendix| if any.\\
+\Underline{\|\begin{biography}|}\\
+\Underline{\mbox{}\quad\<biography-of-1st-author\>}\\
+\Underline{\mbox\qquad$\ldots\ldots\ldots$}\\
+\Underline{\|\end{biography}|}\\
+\|\end{document}|
+\end{list}
+
+%}{
+
+\subsection{Option Styles}\label{sec:DESC}
+
+The following six standard option styles may be specified as
+optional arguments of \|\documentclass| or \|\documentstyle|.
+%
+\begin{DESCRIPTION}%{
+\item[\tt english] for English papers.
+\item[\tt landscape] for online publishing\footnote{%
+%
+This option to typeset in landscape format for online publishing is default.}
+%
+\item[\tt portrait] for paper publishing.
+\item[\tt draft] for draft versions.
+\item[\tt technote] for technical notes.
+\item[\tt preface] for preface of an issue.
+\item[\tt sigrecommended] for a paper recommended by a SIG.
+\item[\tt invited] for invited papers.
+\end{DESCRIPTION}%}
+%
+Any (meaningful) combinations of options are acceptable.  The style has
+other options to make a non-Journal\slash
+Transactions manuscript.  The option \|techrep| is for SIG reports (see
+\ref{sec:app-sig} of Appendix) , while
+\|private| may be used for your private version (to link it from your own
+web page).  With \|private| option, additionally, you may put a copyright
+notice to the left top corner of the first page by;
+%
+\begin{itemize}\item[]%{
+\|\copyrightnotice{|\<copyright-notice\>\|}|
+\end{itemize}%}
+%
+as per the IPSJ Copyright Regulation.
+
+If you specify auxiliary style files by \|\usepackage|\footnote{%
+Or in the optional argument of \cs{documentstyle} if you use {\LaTeX} 2.09},
+%
+you must include them into the file package when you send your final version
+to IPSJ\@.  However, style files included in {\LATEXe} standard distribusion
+(e.g. \|graphicx|) may be omitted.  Note that style files may be
+incompatible to the style of the Journal\slash Transactions.
+
+\subsection{Volume, Number, etc.}
+
+If IPSJ notifies you of the volume and number of the issue that your paper is
+included in, the first page number of your paper, reception and acceptance
+dates, specify them with appropriate commands.  If some (or all) of them are
+not notified, you may omit the corresponding commands.  The {\<year\>} should
+be a four digit number like 2007, and {\<month\>} should be one or two
+digit number like 5 (not May).
+
+%}{
+
+\subsection{Title, Author Names, etc.}\label{sec:Desc}\label{sec:desc}
+
+Describe the title of your paper, author names and affiliations, and
+abstract using the commands and environment shown in \ref{sec:config}.  Then
+perform \|\maketitle| that automatically puts them at the appropriate position.
+In the draft version, the title and abstract are automatically printed onto
+separate pages, while author names and affiliations are not printed to make
+your paper anonymous.
+
+\begin{Description}
+\item[Title]
+The title specified by \|\title| is made centered.  Even if the title is
+too long to be fit to one line, {\em automatic line break is not performed}.
+If your title is long, insert \|\\| into appropriate positions to break
+lines.  A multiple line title is first flushed left and then is centered
+with respect to the widest line.
+
+The title also appears in the header of odd pages.  If your title is too
+long, provide a shortened title for the header to \|\title| as its optional
+argument as follows.
+%
+\begin{quote}
+\|\title[|\<for-header\>\|]{|\<title\>\|}|
+\end{quote}
+
+\item[Author Name and Affiliation]
+Define the affiliation of each author with a label by using \|\affilabel|,
+in order from the first author, to have footnotes showing the affiliations with
+${\dagger}1$, ${\dagger}2$ and so on.  If two or more authors belong to the
+same organization, their affiliation should be declared once.  If an author
+moved somewhere after the paper was written and he/she want to show his/her
+new affiliation, use \|\paffilabel| to define and to put it with ${\ast}1$,
+${\ast}2$, and so on.
+
+The \|\author| argument is a list of author names separated by \|\and|.
+Each author name is followed by one or more \|\affiref{|\<label\>\|}| to
+attach marks corresponding to labels that have been defined by \|\affilabel|
+or \|\paffilabel|.
+
+\item[Abstract]
+The abstract of your paper should be given as the contents for the
+\|abstract| environment.
+\end{Description}
+
+%}{
+
+\subsection{Sectioning}
+
+{\LaTeX} standard commands such as \|\section| and \|\subsection| are
+available for sectioning.  The section heading of \|\section| occupies two
+lines, while others are put in one line.
+
+For definitions, axioms, theorems, and so on, define and use appropriate
+environments with \|\newtheorem|.  Note that the contents of such environments
+are not italicized.  If you want have an italicized environment, use
+\|\newtheorem*|.
+
+%}{
+
+\subsection{Main Text}\label{sec:desc*}
+
+\begin{description*}
+\item[Fixed Baselines]
+Each page of the Journal\slash Transactions is formatted with double-column
+style.  The printing tradition of double-column requires that a line in the
+left column and its neighbor in the right column has the same baseline.  To
+meet 
+this requirement, the style files carefully control the progression of
+baselines when a vertical space is inserted for section titles and so on.
+Therefore, {\em you must not use \|\vspace| nor \|\vskip|}.
+
+If you want to check whether baselines progress properly, add the
+\|\checklines| command in the preamble to print baselines on which
+(ordinary) lines should be located.  This command, however, should be
+omitted when you send your source to the IPSJ.
+
+\item[Font Size]
+You will see that various size fonts are used in the printed result of your
+paper.  Since these fonts are automatically and carefully chosen by the
+style files, you are free from headach of selecting proper fonts.  In
+fact, it is strongly recommended not to use font-size-changing commands such
+as \|\large| and \|\small| in the main text, because they are quite harmful
+to the retention of keeping fixed baselines.  If you really want to use
+smaller fonts, \|\small| 
+or \|\footnotesize|, in order to pack many things in a line, use their {\em
+starred} versions, \|\small*| or \|\footnote*|.  They will change the font
+size while retaining spaces between baselines the same as \|\normalsize|.
+An example of \|\small*| is shown in \ref{sec:config}, and that of
+\|\footnotesize*| is in this page.
+
+\item[Overfull and Underfull]
+The final result must be free from any overfulls.  It is well known that
+almost all overfulls can be avoided by a little effort when describing
+sentences.  For example, avoiding long in-text formulas and \|\verb| is
+very effective.  However, tricks using \|flushleft| environment, \|\\| or
+\|\linebreak| are not recommended, because they cause quite ugly results.
+
+As for underfulls, you will easily get the following warning message
+\begin{Quote}\footnotesize*
+\|Underfull| \|\hbox| \|(badness 10000)| \|detected|
+\end{Quote}
+by \|\\| at the end of a paragraph.  This message is also output when you use
+\|\\| just before a list-like environment, just before an \|\item|, and at
+the end of the environment.  Such underfulls cause ugly empty lines and
+flood of warnings that will hide an important error message.
+\end{description*}
+
+%}{
+
+\subsection{Formulas}\label{sec:ITEM}
+
+\begin{Itemize}
+\item In-text Formulas\\
+In-text formulas may be surrounded by any proper math-open\slash close pair,
+i.e. \|$| and \|$|, \|\(| and \|\)|, or \|\begin| and \|\end| for \|math|
+environment.  Note that tall materials in in-text formulas, such as
+\smash{$\frac{a}{b}$} (\|\frac{a}{b}|), are ugly and will disarrange the
+baseline progression.
+
+\item Displayed Formulas\\
+Displayed formulas {\em must not be surrounded by the pair of \|$$|}.
+Instead, use the \|\[| and \|\]| pair or one of the environments
+\|displaymath|, 
+\|equation| and \|eqnarray|.  These commands\slash environments indent
+formulas (not centered) and keep fixed baselines as follows.
+\begin{equation}
+\Delta_l = \sum_{i=l+1}^L\delta_{pi}.
+\end{equation}
+
+\item \|eqnarray| environment\\
+For a sequence of two or more related formulas (equations), use the \|eqnarray|
+environment to line up them at equal (or unequal) signs, instead of
+\|\[|/\|\]| or \|equation| environment.  Note that contents of \|eqnarray|
+will not be broken over two pages.  If an \|eqnarray| has many lines and you
+want a page break in it, add the option \|[s]| as \|\begin{eqnarray}[s]|.
+
+\item Special Fonts\\
+It is strongly recommended to use only standard {\LaTeX} math fonts.
+Otherwise, you must report that you are using some special fonts and will be
+deeply involved in the dark side of printing process.
+\end{Itemize}
+
+%}{
+
+\begin{figure}[t]
+\setbox0\vbox{\it
+\hbox{\|\begin{figure}[tb]|}
+\hbox{\quad \<figure-body\>}
+\hbox{\|\caption{|\<caption\>\|}|}
+\hbox{\|\label{| $\ldots$ \|}|}
+\hbox{\|\end{figure}\|}}
+\centerline{\fbox{\box0}}
+\caption{Single column figure with caption\\
+	explicitly broken by $\backslash\backslash$.}
+\label{fig:single}
+\end{figure}
+
+\begin{figure}[b]
+\begin{minipage}[t]{0.5\columnwidth}
+\footnotesize
+\setbox0\vbox{
+\hbox{\|\begin{minipage}[t]%|}
+\hbox{\|  {0.5\columnwidth}|}
+\hbox{\|\CaptionType{table}|}
+\hbox{\|\caption{| \ldots \|}|}
+\hbox{\|\ecaption{| \ldots \|}|}
+\hbox{\|\label{| \ldots \|}|}
+\hbox{\|\makebox[\textwidth][c]{%|}
+\hbox{\|\begin{tabular}[t]{lcr}|}
+\hbox{\|\hline\hline|}
+\hbox{\|left&center&right\\\hline|}
+\hbox{\|L1&C1&R1\\|}
+\hbox{\|L2&C2&R2\\\hline|}
+\hbox{\|\end{tabular}}|}
+\hbox{\|\end{minipage}|}}
+\hbox{}
+\centerline{\fbox{\box0}}
+\caption{Contents of Table \protect\ref{tab:right}.}
+\label{fig:left}
+\end{minipage}%
+\begin{minipage}[t]{0.5\columnwidth}
+\CaptionType{table}
+\caption{A table built by Fig.\ \protect\ref{fig:left}.}
+\label{tab:right}
+\makebox[\textwidth][c]{\begin{tabular}[t]{lcr}\hline\hline
+left&center&right\\\hline
+L1&C1&R1\\
+L2&C2&R2\\
+\end{tabular}}
+\end{minipage}
+\end{figure}
+
+\begin{figure*}
+\setbox0\vbox{\large
+\hbox{\|\begin{figure}*[t]|}
+\hbox{\quad\<figure-body\>}
+\hbox{\|\caption{|\<caption\>\|}|}
+\hbox{\|\label{| $\ldots$ \|}|}
+\hbox{\|\end{figure*}|}}
+\centerline{\fbox{\hbox to.9\textwidth{\hss\box0\hss}}}
+\caption{Double column figure}
+\label{fig:double}
+\end{figure*}
+
+\subsection{Figures}
+A figure fit to one column is specified by the form shown in
+\figref{fig:single}.  Note that you must not specify \|h| option.  
+
+The \|\caption| of a figure should be given below of the figure body
+together with a \|\label| command.  A long caption will be automatically
+broken into two or more lines and centered with respect to the widest line.
+You can assist, however, with the line breaking by adding \|\\| to
+obtain more beautiful result especially in the case of two-line captions as
+shown in \figref{fig:single}.
+
+If you want to rank two or more figures and/or tables in a \|figure| (or
+\|table|) environment in order to save space, it is done by enclosing each
+figure\slash table and its \|\caption| in a \|minipage| environment as shown
+in \figref{fig:left} and \tabref{tab:right}.  Also as exemplified by them
+which are in a \|figure| environment, the caption of \tabref{tab:right} is
+correctly typeset because the \|minipage| for it has \|\CaptionType{table}|
+command to specify the type of caption.  The command of course can be used
+with \|figure| argument to give a figure caption.
+
+\Figref{fig:double} shows how to make a double column figure.
+
+You may use any size of fonts as shown in \figref{fig:double}.
+Also you may include an encapsulated PostScript file (so called EPS file) as
+the body of a figure.  For the inclusion, do;
+%
+\begin{Quote}
+\|\usepackage{graphicx}|
+\end{Quote}
+%
+in the preamble and put \|\includegraphics| command at which you wish to
+embed the EPS graphics with its file name (and options if necessary).  If
+you use {\LaTeX} 2.09, you have to include \|epsf| in the optional argument
+of \|\documentstyle| and use \|\epsfile| for the embedment.  Note that only
+the standard fonts shown in Appendix are usable in PostScript files.
+
+You might have noticed that the first reference to \figref{fig:single} is
+bold-faced while the second and third are typed in roman fonts.  This font
+switching is a rule of the Journal\slash Transactions, and will be
+automatically performed if you use \|\figref{|\<label\>\|}| instead of
+\|Fig.~\ref{|\<label\>\|}|.  Another rule is that ``Figure'' must be used
+instead of ``Fig.''\ if the reference is the first word of a sentence, as
+the first reference to \figref{fig:double}.  Unfortunately, this switching
+is too hard to do automatically, and you must use \|\Figref{|\<label\>\|}|
+in such cases.
+
+%}{
+
+\subsection{Tables}
+A table with many rules is not very beautiful.  \Tabref{tab:example} shows
+an example of a table with standard style rules.  Note that the uppermost
+rule is doubled, and no rules are drawn on the left and right edges.  The
+caption should be put above the table.  The default font size in tables is
+\|\footnotesize|.  Any reference to a table should be made using
+\|\tabref{|\<label\>\|}|\footnote{\cs{\Tabref} is also available but is just
+the same as \cs{\tabref}.}.
+
+\begin{table}[b]
+\caption{Sections and sub-sections in which list-like environments are used
+(example of table)}
+\label{tab:example}
+\hbox to\hsize{\hfil
+\begin{tabular}{l|lll}\hline\hline
+&enumerate&itemize&description\\\hline
+type-1&	\ref{sec:enum}&	\ref{sec:item}&	\ref{sec:desc}\\
+type-2&	---&		\ref{sec:item*}&\ref{sec:desc*}\\
+type-3&	\ref{sec:Enum}&	---&		\ref{sec:Desc}\\
+type-4&	---&		\ref{sec:ITEM}&	\ref{sec:DESC}\\\hline
+\multicolumn{4}{l}{type-1\,: {\tt enumerate}, etc.\quad
+	type-2\,: {\tt enumerate*}, etc.}\\
+\multicolumn{4}{l}{type-3\,: {\tt Enumerate}, etc.\quad
+	type-4\,: {\tt ENUMERATE}, etc.}\\
+\end{tabular}\hfil}
+\end{table}
+
+%}{
+
+\subsection{Itemizing}\label{sec:item*}
+
+There are four {\em families} of three {\LaTeX} standard itemizing
+enviroments, \|enume|{\tt\-}\|rate|, \|itemize| and \|description|, as follows.
+%
+\begin{itemize*}
+\item \|enumerate|, \|itemize|, \|description|\\
+Simlar to {\LaTeX}-standard environment except for wider
+indentation.  The indentation of \|enumerate| is three times as wide as
+\|\parindent|, while those of others are twice.  The \|enumerate| labels
+are not {\LaTeX} standard;
+%
+\begin{quote}
+1.\quad (a)\quad i.\quad A.
+\end{quote}
+%
+but have parentheses with small spaces as follows.
+%
+\begin{quote}
+(\,1\,)\quad (\,a\,)\quad (\,i\,)\quad (\,A\,)
+\end{quote}
+
+\item \|enumerate*|, \|itemize*|, \|description*|\\
+Similar to \|enumerate| etc., but indentation is as wide as
+\|\parindent|.
+
+\item \|Enumerate|, \|Itemize|, \|Description|\\
+No indentation is performed.
+
+\item \|ENUMERATE|, \|ITEMIZE|, \|DESCRIPTION|\\
+Indent only the first line by \|\parindent|.
+\end{itemize*}
+%
+See \tabref{tab:example} to see examples of each environment in this
+guide.
+
+%}{
+
+\subsection{Keeping Fixed Baselines}
+
+As described before, every (ordinary) lines in the main text should be
+placed on
+fixed baselines.  Therefore, if your text has extraordinary tall material
+and it shifts other lines from their fixed baselines, enclose the material in
+an \|adjustvboxheight| environment.  For example,
+%
+\begin{adjustvboxheight}
+\begin{quote}
+\fbox{$\displaystyle\sum_{i=0}^n i$}
+\end{quote}
+\end{adjustvboxheight}
+%
+is produced by the following sequence.
+%
+\begin{Quote}\small*
+\|\begin{adjustvboxheight}|\\
+\|\begin{quote}|\\
+\|\fbox{$\displaystyle\sum_{i=0}^n i$}|\\
+\|\end{quote}|\\
+\|\end{adjustvboxheight}|
+\end{Quote}
+%
+You will find the line just after the odd thing is on a fixed baseline.
+
+%}{
+
+\subsection{Footnotes}
+
+The command \|\footnote| produces footnotes with marks like \footnote{An
+example of footnote.} and \footnotemark, resetting number of
+%
+% See \footnotetext 74 lines below.
+%
+footnote marks to one after the page-break.  This automatic adjustment of
+footnote marks, however, usually requires {\LaTeX} to be run twice.
+(See p.~156 of {\LaTeX}Book\cite{latex}.)
+
+Sometimes, it is preferable to separate a footnote and its mark into
+different columns.  You can cope with such a special case using
+\|\footnotemark| and \|\footnotetext| commands.
+
+%}{
+
+\subsection{Citations}
+
+There are two styles of citation.  When the citation appears as a word, use
+the \|\Cite| command to produce the citation number with normal fonts.
+Otherwise, use \|\cite| to have subscripted citations.  For example,
+%
+\begin{Quote}\tt\raggedright
+Goosens explained details of \|\LaTeX|\allowbreak\|\cite{latex}| in 
+\|\Cite{companion}|.
+\end{Quote}
+will produce
+\begin{Quote}
+Goosens explained details of \LaTeX\cite{latex} in \Cite{companion}.
+\end{Quote}
+%
+as the result.
+
+When three or more texts are cited by \|\Cite| or \|\cite| and their
+reference numbers are in series, the first and last numbers are connected by
+`--' (en-dash) automatically, as \Cite{book1,book2,booklet1} and
+``literatures\cite{latex,inbook1,incollection1,inproceedings1}.''  If
+texts cited at once are too numerous to specify them by \|\Cite| or
+\|\cite|, use the following {\em multi} versions.
+%
+\begin{Quote}
+\|\multiCite{|\<1st-label\>\|}{|\<last-label\>\|}|\\
+\|\multicite{|\<1st-label\>\|}{|\<last-label\>\|}|
+\end{Quote}
+%
+They produce results such as \multiCite{article1}{inproceedings1} and
+``literatures\multicite{manual1}{unpublished}.''
+
+%}{
+
+\subsection{References}
+
+References should be arranged in alphabetical or cited order.  It is
+strongly recommended to use BiB{\TeX} and style files \|ipsjsort-e.bst|
+(alphabetical order) or \|ipsjunsort-e.bst| (cited order) to make references
+fit to the traditional style.  You will pick up hints by examining the
+sample bibliography file \|ebibsample.|\allowbreak\|bib| and the refereces of
+this guide produced by BiB{\TeX} with \|ipsjunsort-e| style.  Please pay
+your special attention to \|article| and \|inproceeding|
+entries\cite{article3,inproceedings2} with \|doi| fields for papers in
+electric journals and digital libraries like;
+%
+\begin{quote}\tt
+doi = "10.2197/ipsjdc.3.14",
+\end{quote}
+and \|webpage| entries\cite{webpage1,webpage2,webpage3} with \|url| and
+\|refdate| (to specify, e.g., Feburary 5th, 2007, being the date on which
+you referred to instead of the date on which the page created or modified
+most recently) for WEB pages as follows.
+%
+\begin{quote}\tt
+url = "http://search.ieice.org/",\\
+refdate = "2007-02-05",
+\end{quote}
+%
+Also remember that you must include \|.bbl| file in the file package,
+instead of \|.bib|.
+
+\footnotetext{Another footnote.
+This footnote appears right column while its mark is in left
+column.  See the source file to know how to do it.}
+% See \footnotemark 79 lines above.
+
+If you cannot use Bib{\TeX} and have to make references manually using
+\|the|{\tt\-}\|bibliography| environment, observe the references of this guide
+carefully and follow its style\footnote{The references of this guide are
+produced by {\tt thebiliography} environment to make the source single file,
+but the contents are produced by BiB\TeX.}.
+
+%}{
+
+\subsection{Acknowledgments and Appendices}
+
+If you want to acknowledge some people, put your acknowledgments just
+before the references and enclose them in the \|acknowledgment| environment.  
+Acknowledgments will not be printed in drafts.
+
+Apendices, if any, should be just after the references and \|\appendix|
+command.  Sectioning commands produce headings like {\bf A.1}, {\bf A.2} and
+so on in apendices.  If you want to make the appendix itself have a title,
+give a title to \|\appendix| as its optional argument, like
+\|\appendix[|\<title\>\|]|.
+
+%}{
+
+\subsection{Biography}
+
+Biographies of authors must be put just before \|\end{document}| and have
+the following format.
+%
+\begin{Quote}
+\|\begin{biography}|\\
+\|\author{|\<1st-author's-name\>\|}|\\
+\mbox{}\quad\<biography-of-1st-author\>\\
+\|\author{|\<2nd-author's-name\>\|}|\\
+\mbox{}\quad\<biography-of-2nd-author\>\\
+\mbox{}\quad $\ldots\ldots\ldots$ \\
+\|\end{biography}|
+\end{Quote}
+%
+The first sentence of each biography must not have subjects and be written
+as if its subject is the author's name, e.g. ``was born in 1956.''  The
+biographies are not printed in draft versions.
+
+%}{
+
+\subsection{Estimation of Pages}
+
+Roughly speaking, two pages of a draft version are packed into one page of
+its final version.  For example, the source of this guide produces a 18-page
+draft and 9-page final version, showing the estimation works.
+
+Better estimation, of course, can be obtained by typesetting your draft
+using final version style.
+
+%}{
+
+\section{Concluding Remarks}
+
+We don't dream that the style files are perfect, but wish to improve them
+with your cooperation and hope you let us know your complainment, comments,
+suggessions by e-mail to
+%
+\begin{Quote}
+\|texnicians@ipsj.or.jp|.
+\end{Quote}
+{\TeX}nical questions also welcome to this address, but other questions on the
+Journal\slash Transactions should be received by
+\begin{Quote}
+\|editt@ipsj.or.jp|.
+\end{Quote}
+
+\begin{acknowledgment}
+We would like to express our thanks to Sanbi Printing Corp, ULS and Comany,
+and all those authors who voluntarily cooperate us in the experimental {\LaTeX}
+publishing of the Journal\slash Transactions.
+\end{acknowledgment}
+
+%}{
+
+\begin{thebibliography}{10}
+
+\bibitem{companion}
+Goossens, M., Mittelbach, F. and Samarin, A.: {\em The LaTeX Companion},
+  Addison Wesley, Reading, Massachusetts (1993).
+
+\bibitem{latex}
+Lamport, L.: {\em A Document Preparation System {\LaTeX} User's Guide \&
+  Reference Manual}, Addison Wesley, Reading, Massachusetts (1986).
+
+\bibitem{article1}
+Itoh, S. and Goto, N.: An Adaptive Noiseless Coding for Sources with Big
+  Alphabet Size, {\em Trans. IEICE},  Vol.~E74, No.~9, pp.\ 2495--2503 (1991).
+
+\bibitem{article2}
+Abrahamson, K., Dadoun, N., Kirkpatrick, D.~G. and Przytycka, T.: A Simple
+  Parallel Tree Contraction Algorithm, {\em J. Algorithms},  Vol.~10, No.~2,
+  pp.\ 287--302 (1989).
+
+\bibitem{article3}
+Yamakami, T.: Exploratory Session Analysis in the Mobile Clickstream, {\em IPSJ
+  Digital Courier},  Vol.~3, pp.\ 14--20 (online), \doi{10.2197/ipsjdc.3.14}
+  (2007).
+
+\bibitem{book1}
+Foley, J.~D. et al.: {\em Computer Graphics --- Principles and Practice},
+  System Programming Series, Addison-Wesley, Reading, Massachusetts, 2nd
+  edition (1990).
+
+\bibitem{book2}
+Chang, C.~L. and Lee, R. C.~T.: {\em Symbolic Logic and Mechanical Theorem
+  Proving}, Academic Press, New York (1973).
+
+\bibitem{booklet1}
+{Institute for New Generation Computer Technology}: Overview of the Fifth
+  Generation Computer Project, distributed in {FGCS'92} (1992).
+\newblock (in Japanese).
+
+\bibitem{inbook1}
+Knuth, D.~E.: {\em Fundamental Algorithms}, Art of Computer Programming,
+  Vol.~1, chapter~2, pp.\ 371--381, Addison-Wesley, 2nd edition (1973).
+
+\bibitem{incollection1}
+Schwartz, A.~J.: Subdividing B{\'e}zier Curves and Surfaces, {\em Geometric
+  Modeling: Algorithms and New Trends} (Farin, G.~E., ed.), SIAM, Philadelphia,
+  pp.\ 55--66 (1987).
+
+\bibitem{inproceedings1}
+Baraff, D.: Curved Surfaces and Coherence for Non-penetrating Rigid Body
+  Simulation, {\em SIGGRAPH '90 Proceedings} (Beach, R.~J., ed.), Dallas,
+  Texas, ACM, Addison-Wesley, pp.\ 19--28 (1990).
+
+\bibitem{inproceedings2}
+Nakashima, H. et al.: OhHelp: A Scalable Domain-Decomposing Dynamic Load
+  Balancing for Particle-in-Cell Simulations, {\em Proc.\ Intl.\ Conf.
+  Supercomputing}, pp.\ 90--99 (online),
+  \doi{http://doi.acm.org/10.1145/1542275.1542293} (2009).
+
+\bibitem{manual1}
+Adobe Systems Inc.: {\em PostScript Language Reference Manual}, Reading,
+  Massachusetts (1985).
+
+\bibitem{mastersthesis1}
+Ohno, K.: Efficient Message Communication of Concurrent Logic Programming
+  Language KL1 Based on Static Analysis, Master's thesis, Dept. Information
+  Science, Kyoto University (1995).
+
+\bibitem{misc1}
+Saito, Y. and Nakashima, H.: {{\tt ipsjpapers.sty}} (1995).
+\newblock (Style file for Trans. IPSJ distributed to authors.).
+
+\bibitem{phdthesis1}
+Weihl, W.: Specification and Implementation of Atomic Data Types, PhD Thesis,
+  MIT, Boston (1984).
+
+\bibitem{proceedings1}
+Institute for New Generation Computer Technology: {\em Proc. Intl. Conf. on
+  Fifth Generation Computer Systems}, Vol.~1 (1992).
+
+\bibitem{WarD:WAM-1}
+Warren, D. H.~D.: An Abstract {Prolog} Instruction Set, Technical Report 309,
+  Artificial Intelligence Center, SRI International (1983).
+
+\bibitem{unpublished}
+{Editorial Board of Trans. IPSJ}: How to Typeset Your Papers in {\LaTeX}
+  (Version 1) (1995).
+\newblock (distributed to authors).
+
+\bibitem{webpage1}
+Kay, A.: Welcome to Squeakland, Squeakland (online),
+  \urle{http://www.squeakland.org/community/biography/alanbio.html}
+  \refdatee{2007-04-05}.
+
+\bibitem{webpage2}
+Nakashima, H.: A {WEB} Page, Kyoto University (online),
+  \urle{http://www.para.media.kyoto-u.ac.jp/~nakashima/a.web.page.of.long.url/}
+  \refdatee{2010-10-30}.
+
+\bibitem{webpage3}
+Nakashima, H.: Another {WEB} Page, Kyoto University (online),
+  \urle{http://www.para.media.kyoto-u.ac.jp/~nakashima/a.web.page.of.much.long%
+er.url/} \refdatee{2010-10-30}.
+
+\end{thebibliography}
+
+%}{
+
+\appendix
+\section{Commands for the Transactions}\label{sec:app-trans}
+
+Each Transactions has its own subtitle, abbreviation code and serial
+number.  This information is given by the following command placed before
+\|\begin{document}| of the final version source.
+%
+\begin{itemize}\item[]
+\|\transaction{|\<abbrev\>\|}{|\<volume\>\|}{|\<number\>\|}|
+\end{itemize}
+%
+The argument \<abbrev\> must be one of the folloiwngs, while the \<volume\>
+and \<number\> of the issue will be notified by the IPSJ or the Editorial
+Board of the Transactions.
+%
+\begin{itemize}%{
+\item
+\|PRO| (Trans.\ Programming)
+\item
+\|TOM| (Trans.\ Mathematical Modeling and Its Applications)
+\item
+\|TOD| (Trans.\ Database)
+\item
+\|ACS| (Trans.\ Advanced Computing Systems)
+\item
+\|CVIM| (Trans.\ Computer Vision and Image Media)
+\item
+\|TBIO| (Trans.\ Bioinformatics)
+\item
+\|SLDM| (Trans.\ System LSI Design Methodology)
+\item
+\|CVA| (Trans.\ Computer Vision and Applications)
+\end{itemize}%}
+%
+Note that the \<number\> of the issue does not mean the issue is published
+in the \<number\>-th month of a year.  You may be notified about the
+\<month\>, to be set to the following \|month| counter, by IPSJ or the
+Editorial Board.
+%
+\begin{itemize}\item[]
+\|\setcounter{month}{|\<month\>\|}|
+\end{itemize}
+
+Also note that Transactions may have a few local typesetting
+convensions shown in the following sections.
+
+%}{
+
+\subsection{Functions for PRO}
+
+Issues of The Transactions on Programming (PRO) not only have regular
+papers but also abstracts of the talks given in workshops of SIGPRO.
+The file for an abstract consists of the materials from \|\documentclass|
+(or \|\documentstyle|) to \|\maketitle| of the format shown in
+Section~\ref{sec:config}.  That is, the file does not have a main text.  Note
+that the reception and acceptance dates are not necessary but the date of
+presentation has to be given by;
+%
+\begin{itemize}\item[]
+\|\presented{|\<year\>\|}{|\<month\>\|}{|\<day\>\|}|
+\end{itemize}
+
+%}{
+
+\subsection{Functions for TOM}
+
+Authors of papers included in The Transactions on Mathematical Modeling
+and Its Applications (TOM) may be instructed to give the date of reception
+of the revised version of the paper.  In this case, the date is given by;
+%
+\begin{itemize}\item[]
+\|\rereceived{|\<year\>\|}{|\<month\>\|}{|\<day\>\|}|
+\end{itemize}
+%
+If the paper has revised twice or more, repeat the command above with each
+of the date of revision reception.
+
+%}{
+
+\subsection{Functions for TOD}
+
+The name of the editor in charge for the paper included in The Transactions
+on Database (TOD) is given by;
+%
+\begin{itemize}\item[]
+\|\edInCharge{|\<name-of-editor\>\|}|
+\end{itemize}
+
+%}{
+
+\subsection{Functions for TBIO}
+
+In order to activate TBIO-specific commands, you should specify \|TBIO|
+as an optional argument for \|\documentclass| (or \|documentstyle|).  Since
+TBIO accepts English papers only, \|TBIO| option implies \|english| option.
+Therefore, you may do;
+%
+\begin{itemize}\item[]
+\|\documentclass[TBIO]{ipsjpaper}|
+\end{itemize}
+%
+without \|english| option.  Then the following commands become available.
+%
+\begin{itemize}%{
+\item
+The \<category\> of the paper, \|original|, \|survey| or \|database|, may
+be given by;\\
+\mbox{}\quad
+\|\TBIOpapercategory{|\<category\>\|}|\\
+%
+in the preamble to put ``{\it Original Paper}'', ``{\it Survey Paper}'' or
+``{\it Database\slash Software Paper}'' above the paper title in the first
+page. If this command is not given, \|original| is assumed.
+
+\item
+The name of the editor in charge for the paper may be given by;\\
+\mbox{}\quad
+\|\edInCharge{|\<name-of-editor\>\|}|
+%
+\item
+The date of reception of the revised version may be specified by;\\
+\mbox{}\quad
+\|\rereceived{|\<year\>\|}{|\<month\>\|}{|\<day\>\|}|
+%
+\end{itemize}
+%
+Note that the last two commands are optional and thus may be omitted
+unless the author is given the information for them and is requested to
+specify them.
+
+%}{
+
+\section{How to Make SIG Technical Reports}\label{sec:app-sig}
+
+As SIG technical reports are now published only through IPSJ WEB sites, it
+has become the job for each author to produce the PDF manuscript for
+publication compliant to the IPSJ standard format.  Typesetting a IPSJ
+compliant manuscript, however, is easily done by giving \|techrep|
+option to \|\documentclass| command.  One caution for the compliance is
+that you have to set the counter \|year| according to the date of the
+publication by \|\setcounter| command\footnote{%
+%
+If the counter is not set in the preamble, you will have a warning message
+while the counter will have the value according to the date of the \LaTeX{}
+execution.}.
+%
+Also note that biographies and reception\slash acceptance dates for the
+final version of a paper of Journal or Transactions are not printed with
+\|techrep| option even if they are specified.
+
+%}{
+
+\begin{biography}
+\member{Hiroshi Nakashima}
+was born in 1956.  He received his M.E.\ and Ph.D.\ from Kyoto
+University in 
+1981 and 1991 respectively, and was engaged in research on inference systems
+with Mitsubishi Electric Corporation from 1981.
+He became an associate professor at Kyoto University in 1992, a professor at
+Toyohashi University of Technology in 1997, and a professor at
+Kyoto University in 2006.  His
+current research interests are the architecture of parallel processing systems
+and the implementation of programming languages.  He received the Motooka
+award in 1988 and the Sakai award in 1993.  He is a Board Member of IPSJ,
+and a member of IEEE-CS, ACM, ALP and TUG.
+%
+\member{Yasuki Saito}
+was born in 1953.  He received his M.S. degree from Univ.\ of Essex, UK in
+1978, and M.E. degree from Univ.\ of Tokyo in 1979, respectively.  He has
+been working in NTT Corp.\ since 1979 and now is a senior research scientist
+of the Basic Research Laboratories of NTT.  Since 1984 until 1985 he had
+been a visiting researcher of INRIA, France.  He has been engaging in the
+research areas of artificial intelligence (symbol grouping problem),
+computer software (Japanese \TeX), cognitive science (learning processes).
+He is a member of IPSJ, JSAI, JSSST, JCSS and TUG.
+\end{biography}
+\end{document}

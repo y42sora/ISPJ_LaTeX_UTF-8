@@ -1,0 +1,627 @@
+% ４章 スタイルファイルの使い方
+\section{スタイルファイルの使い方}
+\subsection{一般的な注意事項}
+テスト
+会議の予稿集などとは違い，論文誌の体裁には伝統的かつ「堅い」約束事が数多くあ
+る．そのためスタイルファイルも「堅い」ものとなっており，{\LaTeX} の特徴の一
+つであるカスタマイズ機能は大幅に制限される．例えば \|\textheight| などのいわ
+ゆる style parameter を変更するのは当然やめていただきたい．どのようなカスタ
+マイズが許されるのかを示すのは難しいが，一つの基準として「スタイルファイルを
+読んでみて大丈夫だと確信が持てる」こと以外はしないことを強く勧める．
+
+なお，これらの変更やこのガイドで述べている「やめて欲しいこと」を行なっても，
+{\bf エラーになったりせず単に結果が変になる}ことに注意していただきたい．
+
+%}{
+
+\subsection{論文の構成}\label{sec:config}
+
+ファイルは次の形式で作る．なお下線部は投稿時にはなくてもよい．またトランザク
+ション特有のコマンドなどについては，付録\ref{sec:app-trans}を参照されたい．
+%
+\begin{Quote}\small*
+\|\documentclass{ipsjpapers}|\footnote{%
+	{\LATExe} を2.09互換モードで使う場合，および{\LaTeX} 2.09を使う場合
+	には \CS{documentstyle} を使用し，必要に応じてオプション引数に補助ス
+	タイル名を加える．} または\\
+\|\documentclass[draft]{ipsjpapers}|\footnotemark[1]\\
+必要ならばオプションのスタイルを指定する．\\
+必要ならば補助スタイルを \|\usepackage| で指定する．\\
+\Underline{\|\setcounter{|{\bf 巻数}\|}{|\<巻数\>\|}|}\\
+\Underline{\|\setcounter{|{\bf 号数}\|}{|\<号数\>\|}|}\\
+\Underline{\|\setcounter{volpageoffset}{|\<先頭ページ\>\|}|}\\
+\Underline{\|\|{\bf 受付}\|{|\<年\>\|}{|\<月\>\|}{|\<日\>\|}|}\\
+\Underline{\|\|{\bf 採録}\|{|\<年\>\|}{|\<月\>\|}{|\<日\>\|}|}\\
+必要ならばユーザのマクロ定義などをここに書く．\\
+\|\begin{document}|\\
+\|\title{|\<表題（和文）\>\|}|\\
+\|\etitle{|\<表題（英文）\>\|}|\\
+\Underline{\|\affilabel{|\<所属ラベル\>\|}%|}\\
+\Underline{\mbox{}\qquad\qquad\|{|\<和文所属\>\|\\|\<英文所属\>\|}|}\\
+\Underline{\mbox{}\qquad\qquad\ldots\ldots\ldots}\\
+必要ならば \|\paffilabel| により現在の所属を宣言する．\\
+\Underline{\|\author{|\<第一著者（和文）\>\|\and|}\\
+\Underline{\leavevmode\phantom{\tt @author@}\<第二著者（和文）\>\|\and|}\\
+\Underline{\leavevmode\phantom{\tt @author@} \ldots{} \|}|}\\
+\Underline{\|\eauthor{|\<第一著者（英文）\>\|\and|}\\
+\Underline{\leavevmode\phantom{\tt @eauthor@}\<第二著者（英文）\>\|\and|}\\
+\Underline{\leavevmode\phantom{\tt @eauthor@} \ldots{} \|}|}\\
+\|\begin{abstract}|\\
+\mbox{}\quad\<概要（和文）\>\\
+\|\end{abstract}|\\
+\|\begin{eabstract}|\\
+\mbox{}\quad\<概要（英文）\>\\
+\|\end{eabstract}|\\
+\|\maketitle|\\
+\|\section{|\<第1節の表題\>\|}|\\
+\mbox{}\quad $\ldots\ldots\ldots$\\
+\mbox{}\quad\<本文\>\\
+\mbox{}\quad $\ldots\ldots\ldots$\\
+謝辞があれば \|acknowledgment| 環境を使ってここに記す．\\
+\|\bibliographystyle{ipsjunsrt}| または\\
+\|\bibliographystyle{ipsjsort}|\\
+\|\bibliography{|\<文献データベース\>\|}|\\
+付録があれば \|\appendix| に続いてここに記す．\\
+\Underline{\|\begin{biography}|}\\
+\Underline{\mbox{}\quad\<著者紹介\>}\\
+\Underline{\mbox\qquad$\ldots\ldots\ldots$}\\
+\Underline{\|\end{biography}|}\\
+\|\end{document}|
+\end{Quote}
+
+%}{
+
+\subsection{オプション・スタイル}\label{sec:ENUM}
+
+\|\documentclass| （または \|\documentstyle|）の標準オプションとして，以下の6
+つのものが用意されている．
+%
+\begin{ENUMERATE}%{
+\item\|landscape     | オンライン出版用\footnote{%
+%
+このガイドのようにA4横長のオンライン出版用の製版を行なうオプションであり，デ
+フォルトである．}
+\item\|portrait      | 紙出版用
+\item\|draft         | 投稿用
+\item\|technote      | テクニカルノート用
+\item\|preface       | 序文用
+\item\|english       | 英文用
+\item\|sigrecommended| 研究会推薦論文
+\item\|invited       | 招待論文
+\end{ENUMERATE}%}
+%
+これらのオプションは（意味があれば）任意の組合せで指定することができる．
+また論文誌への投稿／掲載以外の目的で使うことができるように，研究
+報告用の \|techrep|（付録\ref{sec:app-sig}参照）と，（著者自身のweb site等に
+掲載するための）「著者版」を作成する \|private| も用意されている．さらに後
+者では
+%
+\begin{itemize}\item[]%{
+\|\copyrightnotice{|\<著作権情報\>\|}|
+\end{itemize}%}
+%
+により，最初のページの左肩に学会著作権規定で定められた著作権に関する注意書を
+出力することもできる．
+
+\|\usepackage| で\footnote{{\LaTeX} 2.09の場合は \CS{documentstyle} のオプショ
+ン引数で．}%
+補助的なスタイルファイルを指定した場合には，製版用のファイル群に必ずスタイル
+ファイルを含める．ただし，{\LATEXe} の標準配布に含まれているもの（たとえば 
+\|graphicx|）については同封の必要はない．なおスタイルファイルによっては論文
+誌スタイルと矛盾するようなものもあるので，スタイルファイルの性格を良く理解し
+て使用していただきたい．
+
+\subsection{巻数，号数などの記述}
+学会より指示された巻数，号数，先頭ページ番号\hbox{（\|\volpageoffset|）}，受
+付／採録年月日（年は平成年）を記述する．なお学会からの指示がない項目に関して
+は，記述しなくてよい．
+
+%}{
+
+\subsection{表題などの記述}\label{sec:Desc}
+
+表題，著者名とその所属，および概要を前述のコマンドや環境により{\dg 和文と英
+文の双方について}定義した後，\|\maketitle| によって出力する．
+なお投稿時には，表題と概要がそれぞれ別のページに出力され，著者名と所属は出力
+されない．
+%
+\begin{Description}
+\item[表題]
+\|\title| および \|\etitle| で定義した表題はセンタリングされる．文字数の多い
+ものについては{\dg 自動的な改行が行なわれない}ので，適宜 \|\\| を挿入して改行
+する．その際には各行は左詰めで組版され，その後最も長い行を基準にしてセンタリ
+ングされる．なお和文表題は奇数ページのヘッダにも表示されるので，ヘッダに納ま
+らないような長い表題の場合には
+%
+\begin{quote}
+\|\title[|\<ヘッダ用表題\>\|]{|\<表題\>\|}|
+\end{quote}
+%
+のように，ヘッダ用に短くしたものをオプション引数として指定する．
+
+\item[著者名と所属]
+各著者の所属を第一著者から順に \|\affilabel| を用いてラベル（第1引数）を付け
+ながら定義すると，脚注に ${\dagger}1$ や ${\dagger}2$ を付けて和文の所属
+（第2引数の\|\\|より前）と英文の所属（\|\\|より後）が出力される．なお，複数
+の著者が同じ所属である場合には，一度定義するだけで良い．また論文執筆時と発行
+時とでは所属が異なる場合には，\|\paffilabel| を用いて新しい所属を定義する．
+新しい所属は脚注に${\ast}1$や${\ast}2$などを付けて出力される．
+
+著者名は \|\author| と \|\eauthor| で定義し，複数の著者は \|\and| で区切る．
+また各著者名の直後に \|\affiref|\allowbreak\hbox{\|{|\<所属ラベル\>\|}|}
+をおいて（複数可）所属ラベル （\|\affilabel| や \|\paffilabel| で定義したも
+の）を参照し，対応する脚注参照記号を付加する．
+
+なお，和文著者名は必ず{\dg 姓と名を半角（ASCII）の空白で区切る}．
+
+\item[概要]
+和文の概要は \|abstract| 環境の中に，英文の概要は \|eabstract| 環境の中に，
+それぞれ記述する．
+\end{Description}
+
+%}{
+
+
+\subsection{見出し}
+
+節や小節の見出しには \|\section|, \|\subsection| といったコマンドを使用する．
+\|\section|の見出しは2行を占め，他は1行に出力される．
+
+「定義」，「定理」などについては，\|\newtheorem|で適宜環境を宣言し，
+その環境を用いて記述する．なお見出しは{\bf 定理1}などのように日本語の題と番
+号の組合せを想定しているので，題と番号の間には微小な空白しか入らない．もし
+{\bf Thorem 1}のような英語と番号の組合せを用いる場合には，\|\newtheorem*|に
+よって環境を宣言すれば，空白が挿入される．
+
+%}{
+
+\subsection{文章の記述}\label{sec:desc*}\label{sec:enum}
+
+\begin{description*}
+\item[行送り]
+学会誌は2段組を採用しており，左右の段で行の基準線の位置が一致することを原則
+としている．また，節見出しなど，行の間隔を他よりたくさんとった方が読みやすい
+場所では，この原則を守るようにスタイルファイルが自動的にスペースを挿入する．
+したがって本文中では \|\vspace| や \|\vskip| を用いたスペースの調整を行なわ
+ないでいただきたい．なお \|\begin{document}| の前にコマンド \|\checkline| を
+挿入しておくと，本文の各行が持つべき基準線が印刷されるので，行送りが正しいか
+どうかをチェックすることができる．ただしこのコマンドは原稿送付時には使用しな
+いでいただきたい．
+\item[フォントサイズ]
+このガイドの印刷結果からもわかるように，論文誌スタイルでは様々な大きさのフォ
+ントが使われるが，これらは全てスタイルファイルが自動的かつ注意深く選択したも
+のである．したがって，著者が自分でフォントサイズを変更する必要はなく，かえっ
+て行送りの原則を守る妨げにもなる．もし特定の箇所で1行に多くの文字を入れたい
+などの理由から小さいフォントを使用する場合には，\|\small*| あるいは 
+\|\footnotesize*| という\|*|が付いたコマンドを使用していただきたい（この二つ
+以外は禁止）．これらは基準線間隔を変えずにフォントの大きさだけを変更するもの
+である．なお \|\small*| の例が\ref{sec:config}節と次のページに示されている．
+
+\item[句読点]
+句点には全角の「．」，読点には全角の「，」を用いる．ただし英文中や数式
+中で「.」や「,」を使う場合には，半角文字を使う．「。」や「、」は一切使
+わない．
+
+\item[全角文字と半角文字]
+全角文字と半角文字の両方にある文字は次のように使い分ける．
+%
+\begin{enumerate}
+\item 括弧は全角の「（」と「）」を用いる．但し，英文の概要，図表見出し，書誌
+データでは半角の「(」と「)」を用いる．
+
+\item
+英数字，空白，記号類は半角文字を用いる．ただし，句読点に関しては，前項で述べ
+たような例外がある．
+
+\item
+カタカナは全角文字を用いる．
+
+\item
+引用符では開きと閉じを区別する. 開きには \|``|（``） を用い，閉じには \|''|
+（''） を用いる．
+\end{enumerate}
+
+\item[OverfullとUnderfull]
+製版時にはoverfullを起こさないことを原則としている．従って，まず提出するソー
+スが著者の環境でoverfullを起こさないように，文章を工夫するなどの最善の努力を
+払っていただきたい．但し，\|flushleft| 環境，\|\\|，\|\linebreak| などによる
+両端揃えをしない形でのoverfullを回避は，できるだけ避けていただきたい．また著
+者の
+環境では発生しないoverfullが，印刷時の環境では発生することもある．このような
+事態をできるだけ回避するために，文中の長い数式や \|\verb| を避ける，パラグラフ
+の先頭付近では長い英単語を使用しない，などの注意を払っていただきたい．
+
+また，\verb|\\| をパラグラフの終りで使用すると
+%
+\begin{Quote}\small*
+\|Underfull \hbox (badness 10000) detected|
+\end{Quote}
+%
+のwarningが発生し，空行が挿入される．このような空行は見苦しく，また重要なエ
+ラー・メッセージを見逃す原因にもなるので，ソースを提出する時点では全て除去さ
+れているようにしていただきたい．特に，箇条書用環境の直前， \|\item| の直前，
+箇条書用環境の末尾などで \verb|\\| を使うと，前述のwarning が出力されること
+に注意していただきたい．
+\end{description*}
+
+%}{
+
+\subsection{数式}\label{sec:Item}
+
+\begin{Itemize}
+\item 本文中の数式\\
+本文中の数式は \|$| と \|$|, \|\(| と \|\)|, あるいは \|math| 環境のいずれで
+囲んでもよい．なお \smash{$\frac{a}{b}$} (\|\frac{a}{b}|) のように背が高い要
+素は見苦しくかつ行送りを乱すことにもなるので，使用しないようにしていただきた
+い．
+
+\item 別組の数式\\
+別組数式(displayed math)については {\bf \|$$| と \|$$| は使用してはならない}．
+すなわち \|\[| と \|\]| で囲むか, \|displaymath|, \|equation|, \|eqnarray| 
+のいずれかの環境を用いなければならない．これらは
+%
+\begin{equation}
+\Delta_l = \sum_{i=l+1}^L\delta_{pi}
+\end{equation}
+%
+のように，センタリングではなく固定字下げで数式を出力し，かつ背が高い数式によ
+る行送りの乱れを吸収する機能がある．
+
+\item \|eqnarray|環境\\
+互いに関連する別組の数式が2行以上連続して現れる場合には，単に \|\[| と \|\]|，
+あるいは \|\begin{equation}| と \|\end{equation}| で囲った数式を書き並べるの
+ではなく，\|\begin|\allowbreak\|{eqnarray}| と \|\end{eqnarray}| を使って，
+等号（あるいは不等号）の位置で縦揃えを行なった方が読みやすい．なお 
+\|eqnarray| の中では改ページが行なわれないので，行数が多く途中で改ページが起
+こって欲しい場合には，\|\begin{eqnarray}[s]| のようにオプション \|[s]| を指
+定すればよい．
+
+\item 数式のフォント\\
+{\LaTeX}が標準的にサポートしているもの以外の特殊な数式用フォントは，できるだ
+け使わないようにしていただきたい．どうしても使用しなければならない場合には，
+その旨申し出ていただくとともに，印刷工程に深く関与していただくこともあること
+に留意されたい．
+\end{Itemize}
+
+%}{
+
+\begin{figure}
+\setbox0\vbox{
+\hbox{\|\begin{figure}[tb]|}
+\hbox{\quad \<図本体の指定\>}
+\hbox{\|\caption{|\<和文見出し\>\|}|}
+\hbox{\|\ecaption{|\<英文見出し\>\|}|}
+\hbox{\|\label{| $\ldots$ \|}|}
+\hbox{\|\end{figure}\|}}
+\centerline{\fbox{\box0}}
+\caption{1段幅の図}
+\ecaption{Single column figure with caption\\
+	explicitly broken by $\backslash\backslash$.}
+\label{fig:single}
+\end{figure}
+
+\subsection{図}
+
+1段の幅におさまる図は，\figref{fig:single} の形式で指定する. 位置の指定に \|h| 
+は使わない．また，図の下に{\dg 和文と英文の双方の}見出しを，\|\caption| と %
+\|\ecaption| で指定する．文字数が多い見出しはは自動的に改行して最大幅の行を
+基準にセンタリングするが，見出しが2行になる場合には適宜 \|\\| を挿入して改行
+したほうが良い結果となることがしばしばある（\figref{fig:single} の英文見出し
+を参照）．
+
+\begin{figure}
+\begin{minipage}[t]{0.5\columnwidth}
+\footnotesize
+\setbox0\vbox{
+\hbox{\|\begin{minipage}[t]%|}
+\hbox{\|  {0.5\columnwidth}|}
+\hbox{\|\CaptionType{table}|}
+\hbox{\|\caption{| \ldots \|}|}
+\hbox{\|\ecaption{| \ldots \|}|}
+\hbox{\|\label{| \ldots \|}|}
+\hbox{\|\makebox[\textwidth][c]{%|}
+\hbox{\|\begin{tabular}[t]{lcr}|}
+\hbox{\|\hline\hline|}
+\hbox{\|left&center&right\\\hline|}
+\hbox{\|L1&C1&R1\\|}
+\hbox{\|L2&C2&R2\\\hline|}
+\hbox{\|\end{tabular}}|}
+\hbox{\|\end{minipage}|}}
+\hbox{}
+\centerline{\fbox{\box0}}
+\caption{\protect\tabref{tab:right}の中身}
+\ecaption{Contents of Table \protect\ref{tab:right}.}
+\label{fig:left}
+\end{minipage}%
+\begin{minipage}[t]{0.5\columnwidth}
+\CaptionType{table}
+\caption{\protect\figref{fig:left}で作成した表}
+\ecaption{A table built by Fig.\ \protect\ref{fig:left}.}
+\label{tab:right}
+\makebox[\textwidth][c]{\begin{tabular}[t]{lcr}\hline\hline
+left&center&right\\\hline
+L1&C1&R1\\
+L2&C2&R2\\
+\end{tabular}}
+\end{minipage}
+\end{figure}
+
+\begin{figure*}
+\setbox0\vbox{\large
+\hbox{\|\begin{figure*}[t]|}
+\hbox{\quad\<図本体の指定\>}
+\hbox{\|\caption{|\<和文見出し\>\|}|}
+\hbox{\|\ecaption{|\<英文見出し\>\|}|}
+\hbox{\|\label{| $\ldots$ \|}|}
+\hbox{\|\end{figure*}|}}
+\centerline{\fbox{\hbox to.9\textwidth{\hss\box0\hss}}}
+\caption{2段幅の図}
+\ecaption{Double column figure.}
+\label{fig:double}
+\end{figure*}
+
+また紙面スペースの節約のために，1つの \|figure|（または \|table|）環境の中に
+複数の図表を並べて表示したい場合には，\figref{fig:left} と 
+\tabref{tab:right}のように個々の図表と各々の \|\caption|/\|\ecaption| を 
+\|minipage| 環境に入れることで実現できる．なお図と表が混在する場合，
+\|minipage| 環境の中で\|\CaptionType{figure}| あるいは \|\CaptionType{table}| 
+を指定すれば，外側の環境が \|figure| であっても \|table| であっても指定され
+た見出しが得られる．
+
+2段の幅にまたがる図は，\figref{fig:double} の形式で指定する. 位置の指定は
+\|t| しか使えない．
+
+図の中身では本文と違い，どのような大きさのフォントを使用しても構わない
+（\figref{fig:double} 参照）．また図の中身として，encapsulate された 
+PostScript ファイル（いわゆるEPSファイル）を読み込むこともできる．読み込みの
+ためには，プリアンブルで
+%
+\begin{Quote}
+\|\usepackage{graphicx}|
+\end{Quote}
+%
+を行った上で，\|\includegraphics| コマンドを図を埋め込む箇所に置き，その引数
+にファイル名（など）を指定する．また{\LaTeX} 2.09の場合は，\|epsf| を 
+\|\documentstyle| のオプションで指定し，\|\epsfile| コマンドで図を埋め込む．
+
+この節を注意深く見ると，\figref{fig:single} や\figref{fig:double} の最初の参照
+はゴチック体であるのに対し，2回目以降では明朝体であるのに気づくだろう．この
+切替えは論文誌の伝統的体裁に基づくもので，図の参照を（「図\hbox{\|\ref{|\<ラ
+ベル\>\|}|}」ではなく）\|\figref{|\<ラベル\>\|}|を用いて行なえば自動的に成され
+る．
+
+%}{
+
+\subsection{表}
+
+表の罫線はなるべく少なくするのが，仕上がりをすっきりさせるコツである．罫線を
+つける場合には，一番上の罫線には二重線を使い，左右の端には縦の罫線をつけない 
+（\tabref{tab:example}）．表中のフォントサイズのデフォルトは\|\small|である．
+
+また，表の上に{\dg 和文と英文の双方の}見出しを， \|\caption|と \|\ecaption| 
+で指定する．表の参照は \|\tabref{|\<ラベル \>\|}| を用いて行なう． 
+
+\begin{table}[b] \caption{箇条書環境の使用箇所（表の例）} \ecaption{Sections
+and sub-sections in which list-like environments are used (example of
+table).} \label{tab:example}
+% 左右の罫線はつけず，一番上の罫線は二重線
+\hbox to\hsize{\hfil
+\begin{tabular}{l|lll}\hline\hline
+&enumerate&itemize&description\\\hline
+type-1&	\ref{sec:enum}&	\ref{sec:item}&	---\\
+type-2&	---&		\ref{sec:item*}&\ref{sec:desc*}\\
+type-3&	\ref{sec:Enum}&	\ref{sec:Item}&	\ref{sec:Desc}\\
+type-4&	\ref{sec:ENUM}&	\ref{sec:ITEM}&	\ref{sec:DESC}\\\hline
+\multicolumn{4}{l}{type-1\,: enumerate等\quad type-2\,: enumerate*等}\\
+\multicolumn{4}{l}{type-3\,: Enumerate等\quad type-4\,: ENUMERATE等}\\
+\end{tabular}\hfil}
+\end{table}
+
+%}{
+
+\subsection{箇条書}\label{sec:item*}
+
+論文誌では箇条書に関する形式を特に定めておらず，場合に応じて様々な様式が用い
+られている．スタイルファイルでは，{\LaTeX} の箇条書用の環境である
+\|enumerate|, \|itemize|, \|description| に4種類のファミリーを設け，状況に応
+じた使い分けができるようにしている．
+%
+\begin{itemize*}
+\item \|enumerate|, \|itemize|, \|description|\\
+{\LaTeX} の標準的なものと同じ．但しインデンテーションは \|enumerate| では全角3
+文字分，その他は全角2文字分である．また \|enumerate| のラベルは，標準の
+%
+\begin{quote}
+1.\quad (a)\quad i.\quad A.
+\end{quote}
+%
+ではなく，
+%
+\begin{quote}
+(\,1\,)\quad (\,a\,)\quad (\,i\,)\quad (\,A\,)
+\end{quote}
+%
+のように全て括弧付きであり，数字などの前後に小さな空白が挿入される．
+
+\item \|enumerate*|, \|itemize*|, \|description*|\\
+\|enumerate|などとほぼ同じだが，インデンテーションは全角1文字分である．
+
+\item \|Enumerate|, \|Itemize|, \|Description|\\
+文章のインデンテーションを行なわない．
+
+\item \|ENUMERATE|, \|ITEMIZE|, \|DESCRIPTION|\\
+文章のインデンテーションを行なわず，先頭行（ラベルがある行）を全角1文字分だ
+けインデントする．
+\end{itemize*}
+%
+\tabref{tab:example} に示すように
+このパンフレットの各章／節に各々の環境の使用例があるので，適宜参照されたい．
+
+%}{
+
+\subsection{左右の段の行揃え}
+
+文章の記述のところでも述べたように，論文誌では左右の段で行の位置をそろえる必
+要がある．ユーザが特別な高さのボックスを使ったために行の位置が乱れてしまうよ
+うな場合には，その部分を \|\begin|\allowbreak\|{adjustvboxheight}| と %
+\|\end|\allowbreak\|{adjustvboxheight}| で囲っていただきたい．この環境は中途
+半端な行送りを吸収するためのものである．例えば次の；
+%
+\begin{adjustvboxheight}
+\begin{quote}
+\fbox{$\displaystyle\sum_{i=0}^n i$}
+\end{quote}
+\end{adjustvboxheight}
+%
+は，以下のようにして出力したものである．
+%
+\begin{Quote}
+\|\begin{adjustvboxheight}|\\
+\|\begin{quote}|\\
+\|\fbox{$\displaystyle\sum_{i=0}^n i$}|\\
+\|\end{quote}|\\
+\|\end{adjustvboxheight}|
+\end{Quote}
+%
+ただしこのようなものを本文中に挿入することを推奨しているわけではない．
+
+%}{
+
+\subsection{脚注}
+脚注は \|\footnote| コマンドを使って書くと，ページ単位に\footnote{脚注の例．} 
+や\footnote{二つめの脚注．}のような参照記号とともに脚注が生成される．なお，
+ページ内に複数の脚注がある場合，参照記号は {\LaTeX} を2回実行しないと正しく
+ならないことに注意されたい．
+（{\LaTeX} ブック \cite{latex} の156ページ参照．）
+
+また場合によっては，脚注をつけた位置と脚注本体とを別の段に置く方がよいことも
+ある．この場合には，\|\footnotemark| コマンドや \|\footnotetext| コマンドを
+使って対処していただきたい．
+
+%}{
+
+\subsection{参考文献の参照}
+
+本文中で参考文献を参照する場合には，参考文献番号が文中の単語
+として使われる場合と，そうでない参照とでは，使用する文字の大きさが異
+なる．前者は\|\Cite|により参照し，後者は\|\cite|により参照する．たとえば；
+%
+\begin{Quote}
+文献 \|\Cite{total}| は \|\LaTeX\cite{latex}| の総合的な解説書である．
+\end{Quote}
+%
+と書くと；
+%
+\begin{Quote}
+文献\Cite{total}は\LaTeX\cite{latex}の総合的な解説書である．
+\end{Quote}
+%
+が得られる．
+
+また，一つの \|\Cite| あるいは \|\cite| コマンドで三つ以上の文献を参照し，か
+つそれらの参照番号が連続している場合，\Cite{article1,article2,article3}や
+「文献\cite{latex,article4,article5,article6}」のように，自動的に先
+頭と末尾の文献番号が `--' (en-dash) で結合される．なお，非常に多数の文献を参
+照し，それら全てを \|\Cite| や \|\cite|で指定するのが面倒な場合は
+%
+\begin{Quote}\raggedright
+\|\multiCite{|\<先頭文献のラベル\>\|}|\nobreak\hskip-2em\allowbreak
+	\hspace*{2em}\hbox{\|{|\<末尾文献のラベル\>\|}|}\\
+\|\multicite{|\<先頭文献のラベル\>\|}|\nobreak\hskip-2em\allowbreak
+	\hspace*{2em}\hbox{\|{|\<末尾文献のラベル\>\|}|}
+\end{Quote}
+%
+を用いて，\multiCite{article1}{book3}や「文献
+\multicite{booklet1}{unpublished}」のような結果を得ることもできる．
+
+%}{
+
+\subsection{参考文献リスト}
+
+参考文献リストには，原則として本文中で引用した文献のみを列挙する．順序は参照
+順あるいは第一著者の苗字のアルファベット順とする．文献リストは BiB{\TeX} 
+と \|ipsjunsrt.bst|（参照順）または \|ipsjsort.bst|（アルファベット順）を用
+いて作り，\|\bibliograhpystyle| と \|\bibliography| コマンドにより読み込むこ
+とを原則とする\footnotemark ．これらを用いれば，規定の体裁にあったものができ
+%
+% 60 行下の \footnotetext 参照．
+%
+るので，できるだけ利用していただきたい．特に，論文誌の原稿執筆案内
+\cite{webpage2}に示されている，電子ジャーナルやディジタルライブラリ中の文献
+\cite{article7,article8,inproceedings2}やweb
+page\cite{webpage1,webpage2,webpage3,webpage4,webpage5}の参照のために，一般
+的ではないBiB\TeX のエントリ\|webpage|や，下記に例示するフィールド\|doi|,
+\|url|, \|refdate|が定義されていることに注意されたい．
+%
+\begin{quote}\tt
+doi = "10.2197/ipsjdc.3.14",\\
+url = "http://search.ieice.org/",\\
+refdate = "2007-02-05",
+\end{quote}
+なおこのガイドの参考文献は，\|bibsample.bib| を文献スタイル \|ipsjunsort| で
+処理した結果であるので，両者を適宜参照されたい．また製版用のファイル群には
+\|.bib| ファイルではなく \|.bbl| ファイルを必ず含めることに注意されたい．
+
+一方，何らかの理由で \|thebibliography| 環境で文献リストを「手作り」しなけれ
+ばならない場合は，このガイドの参考文献リストを注意深く見て，そのスタイルにし
+たがっていただきたい．
+
+%}{
+
+\subsection{謝辞，付録}
+
+謝辞がある場合には，参考文献リストの直前に置き，\|acknowledgment|環境の中に
+入れる．この環境の中身は投稿時には出力されない．
+
+付録がある場合には，参考文献リストの直後にコマンド \|\appendix| に引き続いて
+書く．なお付録では，\|\section| コマンドが{\bf A.1}，{\bf A.2}などの見出しを
+生成する．また付録全体に見出しをつける場合には，\|\appendix[|\<見出し\>\|]| %
+のように見出しをオプション引数として与える．
+
+%}{
+
+\subsection{著者紹介}\label{sec:DESC}
+
+本文の最後（\|\end{document}| の直前）に，以下のように著者紹介を記述する．
+%
+\begin{quote}
+\|\begin{biography}|\\
+\|\member{|\<第一著者名\>\|}|\\
+\mbox{}\quad\<第一著者の紹介\>\\
+\|\member{|\<第二著者名\>\|}|\\
+\mbox{}\quad\<第二著者の紹介\>\\
+\mbox{}\quad $\ldots\ldots\ldots$ \\
+\|\end{biography}|
+\end{quote}
+%
+なお著者が学生会員あるいは非会員の場合は，正会員用の \|\member| の代わりに
+下記を用いる．
+%
+\begin{DESCRIPTION}
+\item[学生会員]：\|\stmember{|\<著者名\>\|}|
+\item[非会員\phantom{あ}]：\|\nomember{|\<著者名\>\|}|
+\end{DESCRIPTION}
+%
+なお著者紹介は投稿時には出力されない．
+
+\footnotetext{このガイドはファイルを一つにするために
+{\TT thebibliography} 環境を用いているが，その中身はBiB{\TeX}で作成したもの
+である．
+また，このfootnoteは左カラムにマークがあるのにfootnote自体は右カラムに現われ
+ている．これは簡単なトリックで実現できる．ソースファイル参照．}
+% 67 行上の \footnotemark 参照．
+
+%}{
+
+\subsection{ページ数の見積り}
+
+投稿用スタイルでは1ページが\(35\hbox{字}\times32\hbox{行}=1120\hbox{字}\)，
+また製版用では\(24\hbox{字}\times46\hbox{行}\times2\hbox{段}=2208\hbox{字}\) 
+である．したがって粗い見積りとして，製版時には投稿時の半分のページ数になると
+考えることができる．たとえば，このガイドは投稿用では19ページ，製版用では9ペー
+ジであるので，ほぼ見積った通りである．
+
+また投稿用のファイルを製版用にするのは簡単であるので，投稿時にあらかじめどの
+ように製版されるかを試せば，もっと良い見積りが得られる．
+
+%}{

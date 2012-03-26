@@ -1,0 +1,9 @@
+% In order to make the amount of distributed files samll, this file includes
+% esample.tex in a tricky way to print it in the draft style.  So, don't
+% follow this sample, but add `draft' option of \documentclass in sample.tex
+% to have the real sample file of draft versions.
+%
+\documentclass[english,draft]{ipsjpapers}
+\makeatletter
+\def\documentclass[#1]#2{}
+\input{esample}
