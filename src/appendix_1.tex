@@ -1,143 +1,11 @@
-% 付録１ 研究会論文誌用コマンド
-\section{研究会論文誌用コマンド}\label{sec:app-trans}
-テスト
-各研究会論文誌（トランザクション）には各々に固有のサブタイトル，略称，通番が
-ある．製版用原稿では，以下のコマンドを\|\begin{document}|の前に置くことによ
-り，これらの情報を与える．
-%
-\begin{itemize}\item[]
-\|\transaction{|\<略称\>\|}{|\<巻数\>\|}{|\<号数\>\|}|
-\end{itemize}
-%
-なお\<略称\>は以下のいずれかであり，\<巻数\>と\<号数\>は学会あるいは研究会論
-文誌編集委員会の指示に基づいて与える．
-%
-\begin{itemize}%{
-\item
-\|PRO|（プログラミング）
-\item
-\|TOM|（数理モデル化と応用）
-\item
-\|TOD|（データベース）
-\item
-\|ACS|（コンピューティングシステム）
-\item
-\|CVIM|（コンピュータビジョンとイメージメディア）
-\item
-\|TBIO|（Bioinformatics）\footnote{%
-TBIO, SLDM, CVAは英文論文誌であるので和名はない．}
-\item
-\|SLDM|（System LSI Design Methodology）\footnotemark[1]
-\item
-\|CVA|（Computer Vision and Applicaitons）\footnotemark[1]
-%
-\end{itemize}%}
-%
-また上記の\<号数\>は発行月とは連動していないので，学会あるいは編集委員会の指
-示に基づき発行月を；
-%
-\begin{itemize}\item[]
-\|\setcounter{|{\bf 月数}\|}{|\<発行月\>\|}|
-\end{itemize}
-%
-によって指定する．
+% 7
+\section{付録の書き方}
 
-この他，以下の各節で示すように，いくつかの論文誌に固有の機能を実現するための
-コマンドなどが用意されている．
+付録がある場合には，参考文献リストの直後にコマンド \|\appendix| に引き続
+いて書く．付録では，\|\section| コマンドが{\bf A.1}，{\bf A.2}などの見出
+しを生成する．
 
-%}{
+% 7.1
+\subsection{見出しの例}
 
-\subsection{「プログラミング」固有機能}
-
-「論文誌：プログラミング」には論文以外に，プログラミング研究会での研究発表の
-内容梗概が含まれている．この内容梗概は，\|\documentclass|または
-\|\documentstyle|のオプションとして\|abstract|を指定した上で，
-\ref{sec:config}節の\|\maketitle|までの内容からなるファイル（すなわち本文が
-ないファイル）から生成する．なお\|\|{\bf 受付}や\|\|{\bf 採録}は不要であるが，
-代わりに発表年月日を；
-%
-\begin{itemize}\item[]
-\|\|{\bf 発表}\|{|\<年\>\|}{|\<月\>\|}{|\<日\>\|}|
-\end{itemize}
-%
-により指定する．
-
-%}{
-
-\subsection{「数理モデル化と応用」固有機能}
-
-「論文誌：数理モデル化と応用」の論文では，受付や採録の日付以外に再受付日付を
-記載するように指示されることがある．その場合には；
-%
-\begin{itemize}\item[]
-\|\|{\bf 再受付}\|{|\<年\>\|}{|\<月\>\|}{|\<日\>\|}|
-\end{itemize}
-%
-により指定する．なお複数回の再受付が行われた場合，上記のコマンドを繰り返し使
-用する．
-
-%}{
-
-\subsection{「データベース」固有機能}
-
-「論文誌：データベース」の論文の担当編集委員の氏名は；
-%
-\begin{itemize}\item[]
-\|\edInCharge{|\<氏名\>\|}|
-\end{itemize}
-%
-により指定する．
-
-%}{
-
-\subsection{「Bioinformatics」固有機能}
-
-Trans.\ Bioinformatics (TBIO)に固有の機能を利用するためには，\|\documentclass|
-（または\|\documentstyle|）のオプションで\|TBIO|を指定する．なおTBIOは英文論
-文誌であるので，\|TBIO|オプションの指定によって自動的に\|english|オプション
-が指定されたものとみなされる．したがって；
-%
-\begin{itemize}\item[]
-\|\documentclass[TBIO]{ipsjpaper}|
-\end{itemize}
-%
-のように\|english|オプションを省略することができる．またこのオプションの指定
-により，以下のコマンドが使用可能となる．
-%
-\begin{itemize}%{
-\item
-論文の種別は；
-%
-\begin{itemize}\item[]
-\|\TBIOpapercategory{|\<種別\>\|}|
-\end{itemize}
-%
-を用いて，\|original|, \|survey|, \|database| のいずれかを指定する．この結果，
-``{\it Original Paper}'', ``{\it Survey Paper}'' または ``{\it
-Database\slash Software Paper}'' のいずれかが先頭ページのタイトルの左上に表
-示される．なおこのコマンドが与えられなければ \|original| とみなされる．
-
-\item
-担当編集委員の氏名は；
-%
-\begin{itemize}\item[]
-\|\edInCharge{|\<氏名\>\|}|
-\end{itemize}
-%
-により指定する．
-
-\item
-査読過程で条件付採録となった論文の再受付日は；
-%
-\begin{itemize}\item[]
-\|\rereceived{|\<年\>\|}{|\<月\>\|}{|\<日\>\|}|
-\end{itemize}
-%
-により指定する．
-
-\end{itemize}%}
-%
-なお後の2つのコマンドの使用はオプショナルであり，学会あるいは編集委員会から
-の情報提供や指示がなければ省略しても構わない．
-
-%}{
+付録の \|\subsetion| ではこのよう見出しになる．

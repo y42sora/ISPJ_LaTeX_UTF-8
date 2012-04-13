@@ -1,17 +1,37 @@
-% 付録２ 研究報告の作成
-\section{研究報告の作成}\label{sec:app-sig}
-テスト
-研究報告が完全オンライン化されたことに伴い，学会のフォーマットに準拠した掲載
-版PDF作成が著者の責務となった．この掲載版は \|\documentclass| のオプションに
-\|techrep| を指定することで簡単に作成できる．ただし各ページ右下隅の著作権表示
-部分に印字される西暦年を，研究報告掲載日に応じてカウンタ\textbf{年数}（または
-\|year|）に \|\setcounter| を用いて設定する必要があることに注意されたい%
-%
-\footnote{%
-プリアンブルでカウンタが設定されていない場合には警告メッセージが表示され，
-\LaTeX の実行日に基づく値が設定される．}．
-%
-この他，ジャーナル／トランザクションの製版用では表示される著者紹介および受付・
-採録日等は，仮に指定されていても表示されないことにも注意されたい．
+% 8
+\section{研究会論文用コマンド}
+\label{sig}
 
-%}{
+各研究会論文誌（トランザクション）には各々に固有のサブタイトル，略称，通
+番がある．最終原稿では，以下のコマンドを \|\documentclass| の{\bf オプショ
+ン}とすることで，これらの情報を与える．
+
+\begin{itemize}
+\item \|PRO|（プログラミング）
+\item \|TOM|（数理モデル化と応用）
+\item \|TOD|（データベース）
+\item \|ACS|（コンピューティングシステム）
+\item \|CDS|（コンシューマ・デバイス\,\&\,システム）
+\item \|TBIO|（Bioinformatics）\footnote{%
+TBIO, SLDM, CVAは英文論文誌であるので和名はない．}
+\item \|SLDM|（System LSI Design Methodology）\footnotemark[5]
+\item \|CVA|（Computer Vision and Applicaitons）\footnotemark[5]
+\end{itemize}
+
+また英文論文作成の際には \|english| をオプションに追加すればよい．したがっ
+て，\|\documentclass[PRO]{ipsj}| とすれば「プログラミング」の和文用，
+\|\documentclass[PRO,english]| \|{ipsj}| とすれば英文用となる．
+
+また研究会には「号」と連動しない「発行月」があるため，学会あるいは編集委
+員会の指示に基づき，発行月を
+%
+\begin{itemize}\item[]
+\|\setcounter{|{\bf 月数}\|}{<発行月>}|
+\end{itemize}
+%
+によって指定する．
+
+この他，以下の各節で示すように，いくつかの論文誌に固有の機能を実現するた
+めのコマンドなどが用意されている．
+
+\newpage%%

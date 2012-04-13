@@ -1,0 +1,24 @@
+
+\documentclass[submit]{ipsj}
+%\documentclass[submit,draft]{ipsj}
+%\documentclass[submit,techreq]{ipsj}
+
+\usepackage[dvips]{graphicx}
+\usepackage{latexsym}
+
+\def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
+\def\endUnderline{\vphantom{y}\egroup\smash{\underline{\box0}}\\}
+\def\|{\verb|}
+
+\setcounter{巻数}{53}
+\setcounter{号数}{2}
+\setcounter{page}{1}
+
+\受付{2011}{11}{4}
+%\再受付{2011}{7}{16}   %省略可能
+%\再再受付{2011}{7}{20} %省略可能
+\採録{2011}{12}{1}
+
+\begin{document}
+\input{src/body.tex}
+\end{document}

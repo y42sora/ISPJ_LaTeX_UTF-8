@@ -1,0 +1,130 @@
+% 9
+\section{各分冊固有コマンド}
+
+各分冊によってそれぞれ細かい仕様が違うため，同じコマンドでも出力結果が異
+なる場合がある．また「再受付」，「再々受付」が入る場合があり，それらは
+
+\noindent
+和文では
+\begin{itemize}\item[]
+\|\|{\bf 再受付}\|{<年>}{<月>}{<日>}|\\
+\|\|{\bf 再再受付}\|{<年>}{<月>}{<日>}|
+\end{itemize}
+英文では
+\begin{itemize}\item[]
+\|\|{\bf rereceived}\|{<年>}{<月>}{<日>}|\\
+\|\|{\bf rerereceived}\|{<年>}{<月>}{<日>}|
+\end{itemize}
+とプリアンブルに追加する．
+
+% 9.1
+\subsection{\<「プログラミング（PRO）」固有機能}
+
+\<「論文誌：プログラミング」には論文以外に，プログラミング研究会での研究
+発表の内容梗概が含まれている．この内容梗概は，\|\documentclass|のオプショ
+ンとして\|abstract|を指定する．\ref{config}~節の\|\maketitle|までの内容
+からなるファイル（すなわち本文がないファイル）から生成する．なお\|\|{\bf 
+受付}や\|\|{\bf 採録}は不要であるが，代わりに発表年月日を，
+
+\noindent
+和文では
+\begin{itemize}\item[]
+\|\|{\bf 発表}\|{<年>}{<月>}{<日>}|
+\end{itemize}
+英文では
+\begin{itemize}\item[]
+\|\|{\bf Presents}\|{<年>}{<月>}{<日>}|
+\end{itemize}
+により指定する．
+
+% 9.1
+\subsection{\<「データベース（TOD）」固有機能}
+
+\<「論文誌：データベース」の論文の担当編集委員は，
+\begin{itemize}\item[]
+\|\Editor{<氏名>}|
+\end{itemize}
+により指定する．和文では「担当編集委員」，英文では「Editor in Charge:」
+と入る．
+
+またスタイルの変更に伴い，\underline{本文の最後}に入るので，
+\|\end{document}|の前に直接置く．
+
+% 9.2
+\subsection{\<「コンシューマ・デバイス\,\&\,システム（CDS）」固有機能}
+
+\<「論文誌：コンシューマ・デバイス\,\&\,システム」では，
+論文の種類によって見出しが変わるため，
+オプションで切替えを行う．
+
+各種別は
+\begin{itemize}
+\item \|systems  |コンシューマ・システム論文\\
+\|         |Paper on Consumer Systems
+
+\item \|services |コンシューマ・サービス論文\\
+\|         |Paper on Consumer Services
+
+\item \|devices  |コンシューマ・デバイス論文\\
+\|         |Paper on Consumer Devices
+
+\item \|research |研究論文\\
+\|         |Research Paper
+\end{itemize}
+となる．
+
+和文のコンシューマ・システム論文なら，\\
+\|\documentclass[CDS,systems]{ipsj}|
+となり，英文原稿なら \|english|を追加すればよい．
+
+% 9.3
+\subsection{\<「Bioinformatics（TBIO）」固有機能}
+
+Trans.\ Bioinformatics (TBIO)は英文論文誌であるので，\|TBIO|オプションの
+指定によって自動的に\|english|オプションが指定されたものとみなされ，
+\|english| オプションの省略が可能．
+
+論文種別は以下の3種．
+\begin{itemize}
+\item \makebox[4.9zw][l]{指定なし} Original Paper (Default)
+\item \|Data     | Database/Software Paper
+\item \|Survey   | Survey Paper
+\end{itemize}
+
+\|\documentclass[TBIO]{ipsj}|でOriginal Paper，\\
+\|\documentclass[TBIO,Survey]{ipsj}|でSurvey Paperとなる．
+
+また，担当編集委員はTOD同様，\|\Editor|で定義するが，「Communicated by」
+となる．TOD同様，\|\end{document}|の前に直接置く．
+
+% 9.4
+\subsection{\<「Computer Vision and Applicaitons\\\<（CVA）」固有機能}
+
+Trans.\ CVAも英文論文誌であるため，\|english| オプションの省略が可．
+
+論文種別は2種類あり，
+\begin{itemize}
+\item \makebox[4.9zw][l]{指定なし} Regular Paper (Default)
+\item \|Research | Research Paper
+\end{itemize}
+となる．
+
+TBIO同様，担当編集委員が入り，
+挿入文章もTBIO同様，「Communicated by」となる．
+
+% 9.5
+\subsection{\<「System LSI Design Methodology（SLDM）」固有機能}
+
+Trans.\ SLDMも英文論文誌であるため，\|english| オプションの省略が可．
+
+論文種別は2種類あり，
+\begin{itemize}
+\item \makebox[4.9zw][l]{指定なし} Regular Paper (Default)
+\item \|Short    | Short Paper
+\end{itemize}
+となる．
+
+SLDMも担当編集委員が入るが挿入文章が論文によって自動挿入文章が異なる．
+
+通常は「Recommended by Associate Editor:」，\|invited|のオプションが入っ
+た場合のみ，「Invited by Editor-in-Chief:」となる．
